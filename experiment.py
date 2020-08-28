@@ -7,7 +7,7 @@ from utils import data_loader
 import pytorch_lightning as pl
 from torchvision import transforms
 import torchvision.utils as vutils
-from torchvision.datasets import CelebA
+from torchvision.datasets import CIFAR10
 from torch.utils.data import DataLoader
 
 
@@ -137,10 +137,10 @@ class VAEXperiment(pl.LightningModule):
         transform = self.data_transforms()
 
         if self.params['dataset'] == 'celeba':
-            dataset = CelebA(root = self.params['data_path'],
-                             split = "train",
+            dataset = CIFAR10(root = self.params['data_path'],
+                             train=True,
                              transform=transform,
-                             download=False)
+                             download=True)
         else:
             raise ValueError('Undefined dataset type')
 
@@ -155,10 +155,10 @@ class VAEXperiment(pl.LightningModule):
         transform = self.data_transforms()
 
         if self.params['dataset'] == 'celeba':
-            self.sample_dataloader =  DataLoader(CelebA(root = self.params['data_path'],
-                                                        split = "test",
-                                                        transform=transform,
-                                                        download=False),
+            self.sample_dataloader =  DataLoader(CIFAR10(root = self.params['data_path'],
+                                                         train=False,
+                                                         transform=transform,
+                                                         download=True),
                                                  batch_size= 144,
                                                  shuffle = True,
                                                  drop_last=True)
