@@ -132,7 +132,6 @@ class VAEXperiment(pl.LightningModule):
         except:
             return optims
 
-    @data_loader
     def train_dataloader(self):
         transform = self.data_transforms()
 
@@ -150,7 +149,6 @@ class VAEXperiment(pl.LightningModule):
                           shuffle = True,
                           drop_last=True)
 
-    @data_loader
     def val_dataloader(self):
         transform = self.data_transforms()
 
